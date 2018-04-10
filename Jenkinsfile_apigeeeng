@@ -1,5 +1,5 @@
 echo 'Starting pipeline for Scientific Calculator App'
-
+node { 
    stage 'Build Stage'
    git credentialsId: 'aa3fafc1-4552-4c47-b117-3aef5d0a5ad7', url: 'http://10.50.1.72/microservices-lab/ArithmeticOps.git'
    sh 'mvn --settings settings.xml -Dbuildnum=${BUILD_NUMBER} clean test deploy'
@@ -23,3 +23,4 @@ echo 'Starting pipeline for Scientific Calculator App'
    sh './ecs/checkEnv.py ./env/env_prod02_micro.json'
    sh 'export RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -f target/pom.xml | grep -v "^\\[")_${BUILD_NUMBER}; ./ecs/dockerSpawn.py -t -n prod02-addition-svc -b \${RELEASE_VERSION} -e ./env/env_prod02_micro.json -v ./env/env_prod02_micro_attrs.json'
 
+} 
