@@ -1,4 +1,4 @@
-echo 'Starting pipeline for Scientific Calculator App'
+echo 'app'
 
 node('master') {
    stage 'Build Stage'
