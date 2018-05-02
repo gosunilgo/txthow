@@ -1,6 +1,6 @@
 echo 'Starting pipeline for Scientific Calculator App'
 
-node('node_ecs.node1') {
+node('master') {
    stage 'Build Stage'
    git credentialsId: 'aa3fafc1-4552-4c47-b117-3aef5d0a5ad7', url: 'http://10.50.1.72/microservices-lab/ArithmeticOps.git'
    sh 'mvn --settings settings.xml -Dbuildnum=${BUILD_NUMBER} clean test deploy'
