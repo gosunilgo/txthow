@@ -5,6 +5,19 @@ node('master') {
    checkout scm 
    sh 'ls'
    step([$class: 'LastChangesPublisher', since:'PREVIOUS_REVISION',specificRevision: '', format: 'LINE', matchWordsThreshold: '0.25', matching: 'NONE', matchingMaxComparisons: '1000', showFiles: true, synchronisedScroll: true])
+   stage("last-changes") {
+       def publisher = LastChanges.getLastChangesPublisher "PREVIOUS_REVISION", "SIDE", "LINE", true, true, "", "", "", "", ""
+       publisher.publishLastChanges()
+       def changes = publisher.getLastChanges()
+       println(changes.getEscapedDiff())
+       for (commit in changes.getCommits()) {
+                 println(commit)
+                 def commitInfo = commit.getCommitInfo()
+                 println(commitInfo)
+                 println(commitInfo.getCommitMessage())
+                 println(commit.getChanges())
+       }
+                                                              }
    sh 'mvn --settings settings.xml -Dbuildnum=${BUILD_NUMBER} clean test deploy'
 
    stage 'CI Setup'
