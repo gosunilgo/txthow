@@ -1,6 +1,5 @@
 echo 'app'
 
-@NonCPS
 node('master') {
    stage 'Build Stage'
    checkout scm 
@@ -19,6 +18,9 @@ node('master') {
                  def ci = commitInfo.getCommitId()
                  echo "my 1"
                  def x = "$ci" + ""
+                 echo "my 2"
+                 String y = x; 
+                 echo "my 3"
                  echo "my hashs is $ci"
                  sh "git diff --name-only $ci"
                  echo "my 2"
