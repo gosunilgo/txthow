@@ -22,7 +22,8 @@ node('master') {
                  String y = x; 
                  echo "my 3"
                  echo "my hashs is $ci"
-                 sh "git diff --name-only $ci"
+                 echo "print $y"
+                 //sh "git diff --name-only $ci"
                  echo "my 2"
                  println(commitInfo.getCommitMessage())
                  println(commit.getChanges())
