@@ -15,6 +15,7 @@ node('master') {
                  //sh 'git diff --name-only' +  commit
                  def commitInfo = commit.getCommitInfo()
                  println("ci "+ commitInfo)
+                 def ci = commitInfo.getCommitId()
                  sh 'git diff --name-only ' +  commitInfo.getCommitId()
                  println(commitInfo.getCommitMessage())
                  println(commit.getChanges())
