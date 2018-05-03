@@ -3,8 +3,6 @@ echo 'app'
 node('master') {
    stage 'Build Stage'
    checkout scm
-   lastChanges()
-   lastChanges since: 'LAST_SUCCESSFUL_BUILD', format:'SIDE',matching: 'LINE'
 
    sh 'mvn --settings settings.xml -Dbuildnum=${BUILD_NUMBER} clean test deploy'
 
