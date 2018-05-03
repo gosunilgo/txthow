@@ -1,11 +1,12 @@
 echo 'app'
 
 node('master') {
-   stage 'Build Stage'
+   stage 'Build Stage' { 
    checkout scm 
    sh 'ls'
+   step([$class: 'LastChangesPublisher', since:'PREVIOUS_REVISION',specificRevision: '', format: 'LINE', matchWordsThreshold: '0.25', matching: 'NONE', matchingMaxComparisons: '1000', showFiles: true, synchronisedScroll: true])
    sh 'mvn --settings settings.xml -Dbuildnum=${BUILD_NUMBER} clean test deploy'
-
+}
    stage 'CI Setup'
    sh 'mvn --settings settings.xml docker:build -DpushImage -Dbuildnum=${BUILD_NUMBER}'
 
