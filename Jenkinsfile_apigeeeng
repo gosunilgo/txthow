@@ -2,6 +2,7 @@ echo 'app'
 
 node('master') {
    stage 'Build Stage'
+   checkout scm
    lastChanges()
    lastChanges since: 'LAST_SUCCESSFUL_BUILD', format:'SIDE',matching: 'LINE'
 
