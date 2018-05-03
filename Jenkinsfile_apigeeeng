@@ -3,7 +3,7 @@ echo 'app'
 node('master') {
    stage 'Build Stage'
    checkout scm
-
+   sh 'ls' 
    sh 'mvn --settings settings.xml -Dbuildnum=${BUILD_NUMBER} clean test deploy'
 
    stage 'CI Setup'
