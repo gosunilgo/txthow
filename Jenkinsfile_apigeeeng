@@ -1,10 +1,22 @@
-echo 'Starting pipeline for Scientific Calculator App'
-node { 
+echo 'app'
+
+node('master') {
    stage 'Build Stage'
-   //git credentialsId: 'aa3fafc1-4552-4c47-b117-3aef5d0a5ad7', url: 'http://10.50.1.72/microservices-lab/ArithmeticOps.git'
+   checkout scm
+   lastChanges()
+   lastChanges since: 'LAST_SUCCESSFUL_BUILD', format:'SIDE',matching: 'LINE'
+
    sh 'mvn --settings settings.xml -Dbuildnum=${BUILD_NUMBER} clean test deploy'
 
    stage 'CI Setup'
    sh 'mvn --settings settings.xml docker:build -DpushImage -Dbuildnum=${BUILD_NUMBER}'
 
-  } 
+   stage 'QA Deployment'
+
+   stage 'Deploy Approval'
+   timeout(time:5, unit:'MINUTES') {
+      input 'Awaiting Release Manager Approval?'
+   }
+
+   stage 'Prod Deployment'
+}
