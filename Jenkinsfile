@@ -1,5 +1,6 @@
 echo 'app'
 
+@NonCPS
 node('master') {
    stage 'Build Stage'
    checkout scm 
