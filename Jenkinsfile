@@ -12,9 +12,9 @@ node('master') {
        println(changes.getEscapedDiff())
        for (commit in changes.getCommits()) {
                  println(commit)
-                 sh 'git diff --name-only' +  commit
+                 //sh 'git diff --name-only' +  commit
                  def commitInfo = commit.getCommitInfo()
-                 println(commitInfo)
+                 println("ci "+ commitInfo)
                  println(commitInfo.getCommitMessage())
                  println(commit.getChanges())
        }
