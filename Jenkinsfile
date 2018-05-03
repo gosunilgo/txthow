@@ -17,7 +17,8 @@ node('master') {
                  println("ci "+ commitInfo)
                  def ci = commitInfo.getCommitId()
                  echo "my hashs is $ci"
-                 //sh 'git diff --name-only ' + ci
+                 sh "git diff --name-only $ci"
+                 echo "my 2"
                  println(commitInfo.getCommitMessage())
                  println(commit.getChanges())
        }
