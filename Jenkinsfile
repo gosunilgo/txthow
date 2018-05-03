@@ -23,7 +23,7 @@ node('master') {
                  echo "my 3"
                  echo "my hashs is $ci"
                  echo "print $y"
-                 sh "git diff --name-only $y"
+                 sh "git diff --name-only ^^HEAD"
                  echo "my 2"
                  println(commitInfo.getCommitMessage())
                  println(commit.getChanges())
